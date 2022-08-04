@@ -1,4 +1,4 @@
-import { connectDB, closeDB } from "../config/db.js";
+import { connectDB, closeDB } from "../config/db.js"; //Se importa los metodos de conectar y cerrar conexion
 
 let con = "";
 let res;
@@ -7,13 +7,15 @@ const formatDate = (date) => {
   return new Date(date).toISOString().slice(0, 19).replace("T", " ");
 };
 
-//get all Tasks
+//Get all Tasks. Metodo para obtener todas las tareas
 const getTasks = async (req, res) => {
   con = await connectDB();
   const sql = "SELECT * FROM tasks";
   con.query(sql, (err, results) => {
     if (err) {
-      res = err;
+      res.json({
+        msg: err,
+      });
     } else {
       res.json({
         results,
@@ -23,7 +25,7 @@ const getTasks = async (req, res) => {
   });
 };
 
-//Get a task by id
+//Get a task by id. Metodo para obtener la tarea por el id
 const getTask = async (req, res) => {
   const task_id = req.params.id;
   console.log(task_id);
@@ -44,8 +46,9 @@ const getTask = async (req, res) => {
   });
 };
 
-//Add new task
+//Add new task. Metodo para agregar una nueva tarea a la BD
 const newTask = async (req, res) => {
+  //Declaracion de las variables y se les asigna el valor extraido desde el body
   const task_id = req.body.task_id;
   const title = req.body.title;
   const start_date = req.body.start_date;
@@ -76,8 +79,9 @@ const newTask = async (req, res) => {
   });
 };
 
-//Update a task
+//Update a task. Metodo para actualizar una tarea
 const updateTask = async (req, res) => {
+  //Declaracion de las variables y se les asigna el valor extraido desde el body
   const task_id = req.body.task_id;
   const title = req.body.title;
   const start_date = req.body.start_date;
@@ -102,16 +106,12 @@ const updateTask = async (req, res) => {
         results,
       });
 
-      //return res;
       closeDB(con);
     }
   });
-  /*res.json({
-    msg: "Updating a task.",
-  });*/
 };
 
-//Delete a task
+//Delete a task. Metodo para eliminar una tarea.
 const deleteTask = async (req, res) => {
   const task_id = req.body.task_id;
   con = await connectDB();
@@ -128,13 +128,10 @@ const deleteTask = async (req, res) => {
         results,
       });
 
-      //return res;
       closeDB(con);
     }
   });
-  /*res.json({
-    msg: "Deleting a task.",
-  });*/
 };
 
+//Se exportan todos los metodos del controlador
 export { getTasks, newTask, updateTask, deleteTask, getTask };

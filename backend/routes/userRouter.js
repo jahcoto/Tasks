@@ -5,7 +5,7 @@ const userRouter = express.Router();
 //importamos el controller de users
 import {
   deleteUser,
-  getEmails,
+  getNames,
   getUsers,
   newUser,
   updateUser,
@@ -13,7 +13,7 @@ import {
 
 //metodos get
 userRouter.get("/", getUsers);
-userRouter.get("/getEmails", getEmails);
+userRouter.get("/get-names", getNames);
 
 //metodos post
 userRouter.post("/new-user", newUser);

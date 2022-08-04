@@ -1,23 +1,24 @@
-import express from "express";
+import express from "express"; //Se importa express
 
-const userRouter = express.Router();
+const statusRouter = express.Router(); //Se declara el router de Status
 
 //importamos el controller de status
 import {
   //deleteStatus,
-  //getName,
+  getName,
   getStatus,
-  //newStatus,
-  //updateStatus,
+  newStatus,
+  updateStatus,
+  deleteStatus,
 } from "../controller/statusController.js";
 
 //metodos get
-userRouter.get("/", getStatus);
-//userRouter.get("/get-name", getName);
+statusRouter.get("/", getStatus);
+statusRouter.get("/get-names", getName);
 
 //metodos post
-//userRouter.post("/new-status", newStatus);
-//userRouter.post("/update-status", updateStatus);
-//userRouter.post("/delete-status", deleteStatus);
+statusRouter.post("/new-status", newStatus);
+statusRouter.post("/update-status", updateStatus);
+statusRouter.post("/delete-status", deleteStatus);
 
-export default userRouter;
+export default statusRouter;

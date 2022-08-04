@@ -1,35 +1,25 @@
 import mysql from "mysql";
 
-const connectDB = async (sql) => {
+//Metodo que nos permite conectar la BD
+const connectDB = async () => {
   let res;
   let json_res;
   let connection;
   try {
-    connection = mysql.createConnection(process.env.CONNECTION_STRING);
+    connection = mysql.createConnection(process.env.CONNECTION_STRING); //Crea la conexion yse asigna a la variable
     connection.connect();
 
     console.log("DataBase connected!!!");
-    /*connection.query(sql, (err, results) => {
-      if (err) {
-        res = err;
-        return res;
-      } else {
-        console.log(results[0].task_id);
-        res = results;
-        console.log(res);
-        //return res;
-      }
-    });*/
     //connection.end();
   } catch (error) {
     res = `Error: ${error.message}`;
     return res;
   }
-  //console.log(res);
   //json_res = JSON.parse(res);
-  return connection;
+  return connection; //Devuelve la variable con la conexion.
 };
 
+//Metodo que nos permite cerrar la conexion, se recibe la variable que contiene la conexion
 const closeDB = (connection) => {
   connection.end();
 };
